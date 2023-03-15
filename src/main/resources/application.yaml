@@ -1,0 +1,48 @@
+server:
+  port: 9997
+  max-http-header-size: 64KB
+spring:
+  application:
+    name: av-config-server
+#  config:
+#    import: optional:aws-secretsmanager:${SOAR_AWS_SECRETID_NAME}
+#  datasource:
+#    url: ${CONFIG_DB_URL:jdbc:postgresql://localhost:5432/postgres?autoReconnect=true&currentSchema=soar}
+#    username: postgres
+#    password: admin
+#    url: ${CONFIG_DB_URL:jdbc:postgresql://dev-soar-useast2-oyster-soar-primary.cluster-cyurssw2wnhq.us-east-2.rds.amazonaws.com:5432/soar?autoReconnect=true&currentSchema=soar}
+#    username: ${CONFIG_DB_USERNAME:soar_admin}
+#    password: '{[]g4&^jM5}QQNe[]})-'
+#    hikari:
+#      maximumPoolSize: 5
+#      connectionTimeout: 300000
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    config:
+      server:
+        #folder location where config files are stored
+        native:
+          searchLocations: ${CONFIG_FILE_LOCATION:/Users/ashishgupta/Documents/resources/config}
+        # s3 bucket and region where config files are stored
+#        awss3:
+#          region: ${S3_REGION}
+#          bucket: ${S3_BUCKET}
+        # git repository where config files are stored (if ssh is used for connection -> pass ssh git url otherwise https url)
+#        git:
+#          uri: ${GIT_REPOSITORY_URL}
+          #optional if no passphrase entered while generating ssh key, remove this field (need discussion with devops team)
+#          passphrase: ${GIT_PASSPHRASE}
+          # git branch name (eg. master, development)
+#          default-label: ${GIT_REPOSITORY_BRANCH}
+  profiles:
+    active:
+      - ${ACTIVE_CONFIG_PROFILE:native}      
+management:
+    endpoints:
+        web:
+            exposure:
+                include: '*'
+    metrics:
+        tags:
+            service: ${spring.application.name}
