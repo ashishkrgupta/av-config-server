@@ -19,11 +19,11 @@ spring:
   cloud:
     compatibility-verifier:
       enabled: false
-    config:
-      server:
+#    config:
+#      server:
 #        folder location where config files are stored
-        native:
-          searchLocations: ${CONFIG_FILE_LOCATION:/Users/ashishgupta/Documents/resources/config}
+#        native:
+#          searchLocations: ${CONFIG_FILE_LOCATION:/Users/ashishgupta/Documents/resources/config}
         # s3 bucket and region where config files are stored
 #        awss3:
 #          region: ${S3_REGION}
@@ -39,10 +39,11 @@ spring:
 #    active:
 #      - ${ACTIVE_CONFIG_PROFILE:native}      
 management:
-    endpoints:
-        web:
-            exposure:
-                include: '*'
-    metrics:
-        tags:
-            service: ${spring.application.name}
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  metrics:
+    tags:
+      service: ${spring.application.name}
+      
