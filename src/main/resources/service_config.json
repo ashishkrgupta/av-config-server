@@ -1,0 +1,20 @@
+[{
+  "_id": {
+    "$oid": "641a952f12daf4053d5ebff9"
+  },
+  "application": "av-gateway",
+  "profile": "dev",
+  "source": {
+    "key": "val"
+  }
+},{
+  "_id": {
+    "$oid": "641a955a12daf4053d5ebffa"
+  },
+  "application": "common-config",
+  "profile": "dev",
+  "source": {
+    "key": "val2",
+    "key1": "val1"
+  }
+}]

@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: av-config-server
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: av_ams_masterdb
 #  config:
 #    import: optional:aws-secretsmanager:${SOAR_AWS_SECRETID_NAME}
 #  datasource:

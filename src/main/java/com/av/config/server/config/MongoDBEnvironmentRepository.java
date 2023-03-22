@@ -25,7 +25,10 @@ import com.av.config.server.propertysource.MongoPropertySource;
 public class MongoDBEnvironmentRepository implements EnvironmentRepository, Ordered {
 
 	private static final String PROFILE = "profile";
+	private static final String APPLICATION = "application";
 	private static final String DEFAULT = "default";
+	private static final String COLLECTION_NAME = "service_config";
+	private static final String COMMON_CONFIG = "common-config";
 	private static final String DEFAULT_PROFILE = null;
 
 	@Autowired
@@ -53,16 +56,17 @@ public class MongoDBEnvironmentRepository implements EnvironmentRepository, Orde
 		profiles = sortedUnique(profiles);
 
 		Query query = new Query();
-		query.addCriteria(Criteria.where(PROFILE).in(profiles.toArray()));
+		query.addCriteria(Criteria.where(PROFILE).in(profiles.toArray())).
+			addCriteria(Criteria.where(APPLICATION).in(Arrays.asList(applicationName, COMMON_CONFIG)));
 
 		Environment environment;
 		try {
-			List<MongoPropertySource> sources = template.find(query, MongoPropertySource.class, applicationName);
+			List<MongoPropertySource> sources = template.find(query, MongoPropertySource.class, COLLECTION_NAME);
 			sortSourcesByProfile(sources, profiles);
 			environment = new Environment(applicationName, profilesArr, label, null, null);
 			for (MongoPropertySource propertySource : sources) {
 				String prof = propertySource.getProfile() != null ? propertySource.getProfile() : DEFAULT;
-				String sourceName = String.format("%s-%s", applicationName, prof);
+				String sourceName = String.format("%s-%s", propertySource.getApplication(), prof);
 				Map<String, Object> flatSource = mapFlattener.flatten(propertySource.getSource());
 				PropertySource propSource = new PropertySource(sourceName, flatSource);
 				environment.add(propSource);

@@ -5,8 +5,17 @@ import java.util.Map;
 
 public class MongoPropertySource {
 	
+	private String application;
 	private String profile;
 	private Map<String, Object> source = new LinkedHashMap<>();
+
+	public String getApplication() {
+		return application;
+	}
+
+	public void setApplication(String application) {
+		this.application = application;
+	}
 
 	public String getProfile() {
 		return profile;
