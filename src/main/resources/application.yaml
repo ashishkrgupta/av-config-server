@@ -1,5 +1,5 @@
 server:
-  port: 9997
+  port: 8888
   max-http-header-size: 64KB
 spring:
   application:
@@ -21,7 +21,7 @@ spring:
       enabled: false
     config:
       server:
-        #folder location where config files are stored
+#        folder location where config files are stored
         native:
           searchLocations: ${CONFIG_FILE_LOCATION:/Users/ashishgupta/Documents/resources/config}
         # s3 bucket and region where config files are stored
@@ -35,9 +35,9 @@ spring:
 #          passphrase: ${GIT_PASSPHRASE}
           # git branch name (eg. master, development)
 #          default-label: ${GIT_REPOSITORY_BRANCH}
-  profiles:
-    active:
-      - ${ACTIVE_CONFIG_PROFILE:native}      
+#  profiles:
+#    active:
+#      - ${ACTIVE_CONFIG_PROFILE:native}      
 management:
     endpoints:
         web:
