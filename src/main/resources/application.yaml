@@ -4,11 +4,11 @@ server:
 spring:
   application:
     name: av-config-server
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: av_ams_masterdb
+#  data:
+#    mongodb:
+#      host: localhost
+#      port: 27017
+#      database: av_ams_masterdb
 #  config:
 #    import: optional:aws-secretsmanager:${SOAR_AWS_SECRETID_NAME}
 #  datasource:
@@ -24,8 +24,10 @@ spring:
   cloud:
     compatibility-verifier:
       enabled: false
-#    config:
-#      server:
+    config:
+      server:
+        mongo:
+          enabled: false
 #        folder location where config files are stored
 #        native:
 #          searchLocations: ${CONFIG_FILE_LOCATION:/Users/ashishgupta/Documents/resources/config}
@@ -34,15 +36,17 @@ spring:
 #          region: ${S3_REGION}
 #          bucket: ${S3_BUCKET}
         # git repository where config files are stored (if ssh is used for connection -> pass ssh git url otherwise https url)
-#        git:
-#          uri: ${GIT_REPOSITORY_URL}
+        git:
+          uri: https://github.com/ashishkrgupta/av-app-props
           #optional if no passphrase entered while generating ssh key, remove this field (need discussion with devops team)
 #          passphrase: ${GIT_PASSPHRASE}
           # git branch name (eg. master, development)
-#          default-label: ${GIT_REPOSITORY_BRANCH}
-#  profiles:
-#    active:
-#      - ${ACTIVE_CONFIG_PROFILE:native}      
+          username: app-props-readonly
+          password: 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
+          default-label: ${GIT_REPOSITORY_BRANCH:main}
+  profiles:
+    active:
+      - ${git}      
 management:
   endpoints:
     web:

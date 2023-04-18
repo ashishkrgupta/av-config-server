@@ -9,6 +9,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.YamlProcessor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.config.environment.Environment;
 import org.springframework.cloud.config.environment.PropertySource;
 import org.springframework.cloud.config.server.environment.EnvironmentRepository;
@@ -22,6 +23,7 @@ import org.springframework.util.StringUtils;
 import com.av.config.server.propertysource.MongoPropertySource;
 
 @Configuration
+@ConditionalOnProperty(value = "spring.cloud.config.server.mongo.enabled", havingValue = "true")
 public class MongoDBEnvironmentRepository implements EnvironmentRepository, Ordered {
 
 	private static final String PROFILE = "profile";
